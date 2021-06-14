@@ -24,16 +24,6 @@ function Calculator() {
   const handleInputChange = (event) =>
     setUserValues({ ...userValues, [event.target.name]: event.target.value });
 
-  // Note:
-  // You can optionally write:
-  //   const handleAmountInputChange = (event) =>
-  //     setUserValues({ ...userValues, amount: event.target.value });
-
-  //   const handleInterestInputChange = (event) =>
-  //     setUserValues({ ...userValues, interest: event.target.value });
-
-  //   const handleYearsInputChange = (event) =>
-  //     setUserValues({ ...userValues, years: event.target.value });
 
   // Manage validations and error messages
   const isValid = () => {
@@ -43,11 +33,11 @@ function Calculator() {
     if (!amount || !interest || !years) {
       actualError = 'All the values are required';
     }
-    // Validade if the values are numbers
+    // Validate if the values are numbers
     if (isNaN(amount) || isNaN(interest) || isNaN(years)) {
       actualError = 'All the values must be a valid number';
     }
-    // Validade if the values are positive numbers
+    // Validate if the values are positive numbers
     if (Number(amount) <= 0 || Number(interest) <= 0 || Number(years) <= 0) {
       actualError = 'All the values must be a positive number';
     }
@@ -71,7 +61,6 @@ function Calculator() {
   const calculateResults = ({ amount, interest, years}) => {
     const userAmount = Number(amount);
     const calculatedInterest = Number(interest) / 100 / 12;
-    // const calculatedInterest = (Number(amount) * Number(interest * 0.01)) / months
     const calculatedPayments = Number(years) * 12;
     const x = Math.pow(1 + calculatedInterest, calculatedPayments);
     const monthly = (userAmount * x * calculatedInterest) / (x - 1);
@@ -118,8 +107,6 @@ function Calculator() {
         {/* Display the error when it exists */}
         <p className='error'>{error}</p>
         <form onSubmit={handleSubmitValues}>
-          {/* ternary operator manages when the calculator and results will be displayed to the user */}
-          {/* {!results.isResult ? ( */}
             {/* //   Form to collect data from the user */}
             <div className='form-items'>
               <div>
@@ -129,7 +116,6 @@ function Calculator() {
                   name='amount'
                   placeholder='Loan amount'
                   value={userValues.amount}
-                  // onChange method sets the values given by the user as input to the userValues state
                   onChange={handleInputChange}
                 />
               </div>
@@ -155,10 +141,8 @@ function Calculator() {
               </div>
               <input type='submit' className='button' />
             </div>
-          {/* ) : ( */}
             {/* //   Form to display the results to the user */}
             {results.isResult && (
-            
             <div className='form-items'>
               <h4>
                 Loan amount: ${userValues.amount} <br /> Interest:{' '}
@@ -185,7 +169,6 @@ function Calculator() {
               />
             </div>
             )}
-          {/* )} */}
         </form>
       </div>
     </div>
